@@ -1,20 +1,51 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { Button, StyleSheet, Text, View } from 'react-native';
 
 export default function App() {
+  const[show,setShow]=useState(true)
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <Text style={{fontSize:25}}>Show/Hide Component </Text>
       <StatusBar style="auto" />
+     { 
+      show ? <User/>:null
+     }
+
+      <Button title='toggle component' onPress={()=>{setShow(!show)}}/>
+        
+     
     </View>
   );
+}
+const User=()=>{
+
+ let timer =setInterval(()=>{
+  console.warn("timer working");
+  
+ },2000)
+
+  useEffect(() => {
+    return () => clearInterval(timer) 
+    
+  })
+
+  return(
+    <View>
+      <Text style={styles.usertxt}>
+        User Component
+      </Text>
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  backgroundColor: '#fff',
+  paddingTop:35,
   },
+  usertxt:{
+    color:"green",
+    fontSize:20,
+  }
 });
